@@ -1,4 +1,4 @@
-module PostsHelper
+module Enki::PostsHelper
   # This isn't strictly correct, but it's a pretty good guess
   # and saves another hit to the DB
   def more_content?

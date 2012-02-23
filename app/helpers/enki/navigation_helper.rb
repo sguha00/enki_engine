@@ -1,4 +1,4 @@
-module NavigationHelper
+module Enki::NavigationHelper
   def page_links_for_navigation
     link = Struct.new(:name, :url)
     [link.new("Home", root_path),
