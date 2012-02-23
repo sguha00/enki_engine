@@ -1,4 +1,4 @@
-# Configuration options for your blog - customise to taste
+# Configuration options for your blog - customise to taste and copy to the host app's config folder.
 # This file contains no secret information, so can be stored in source control (unlike database.yml)
 title: My Enki Blog
 url:   http://enkiblog.com
