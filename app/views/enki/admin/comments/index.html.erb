@@ -23,7 +23,7 @@
     <% if @comments.total_pages > 1 -%>
       <tr class="pagination">
         <td colspan='5'>
-          <%= will_paginate(@comments, :previous_label => '« Newer', :next_label => 'Older »') %>
+          <%= paginate @comments %>
         </td>
       </tr>
     <% end -%>
