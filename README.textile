@@ -60,3 +60,11 @@ h2. License
 GPL(General Public License) - See LICENSE
 
 Admin design heavily inspired by "Habari":http://www.habariproject.org/en/
+
+
+h2. TODO
+
+* Generator to install config/enki.yml.
+* Generator to create bare Enki::BaseController and Enki::Admin::BaseController in host app.
+* Properly rip out openid stuff.
+* Fix up specs!
