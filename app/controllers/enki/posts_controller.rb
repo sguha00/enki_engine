@@ -11,8 +11,17 @@ module Enki
     end
 
     def show
-      @post = Post.find_by_permalink(*([:year, :month, :day, :slug].collect {|x| params[x] } << {:include => [:approved_comments, :tags]}))
-      @comment = Comment.new
+      @post = Post.find_by_permalink(*([:year, :month, :day, :slug].collect {|x| params[x] } << {:include => includes_for_show}))
+      @comment = Comment.new if comments?
     end
+
+    protected
+
+      def includes_for_show
+        [
+          comments? ? :approved_comments : nil,
+          tags? ? :tags : nil
+        ].compact
+      end
   end
 end
