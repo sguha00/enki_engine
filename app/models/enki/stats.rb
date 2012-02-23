@@ -1,4 +1,4 @@
-class Stats
+class Enki::Stats
   def post_count
     Post.count
   end

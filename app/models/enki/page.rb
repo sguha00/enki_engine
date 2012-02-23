@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Enki::Page < ActiveRecord::Base
   validates_presence_of :title, :slug, :body
 
   before_validation     :generate_slug

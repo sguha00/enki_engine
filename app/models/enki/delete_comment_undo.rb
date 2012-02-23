@@ -1,4 +1,4 @@
-class DeleteCommentUndo < UndoItem
+class Enki::DeleteCommentUndo < UndoItem
   def process!
     raise(UndoFailed) if Comment.find_by_id(loaded_data.delete('id').to_i)
 
