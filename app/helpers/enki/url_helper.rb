@@ -1,4 +1,4 @@
-module UrlHelper
+module Enki::UrlHelper
   def post_path(post, options = {})
     suffix = options[:anchor] ? "##{options[:anchor]}" : ""
     path = post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix

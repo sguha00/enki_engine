@@ -1,4 +1,4 @@
-module DateHelper
+module Enki::DateHelper
   def format_month(date)
     date.strftime("%B %Y")
   end

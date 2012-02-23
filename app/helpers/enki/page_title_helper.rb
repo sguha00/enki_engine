@@ -1,4 +1,4 @@
-module PageTitleHelper
+module Enki::PageTitleHelper
   def posts_title(tag)
     compose_title((tag || "").to_s.titleize)
   end
