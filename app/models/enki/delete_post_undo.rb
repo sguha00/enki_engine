@@ -1,4 +1,4 @@
-class DeletePostUndo < UndoItem
+class Enki::DeletePostUndo < UndoItem
   def process!
     post_attributes = loaded_data[:post]
     raise('Post already exists') if Post.find_by_id(post_attributes.delete('id').to_i)

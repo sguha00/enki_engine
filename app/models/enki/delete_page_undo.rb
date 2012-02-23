@@ -1,4 +1,4 @@
-class DeletePageUndo < UndoItem
+class Enki::DeletePageUndo < UndoItem
   def process!
     raise('Page already exists') if Page.find_by_id(loaded_data.delete('id').to_i)
 

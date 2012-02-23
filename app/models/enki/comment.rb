@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Enki::Comment < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
   attr_accessor         :openid_error

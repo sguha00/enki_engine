@@ -1,4 +1,4 @@
-class Tag < ActiveRecord::Base
+class Enki::Tag < ActiveRecord::Base
   has_many                :taggings, :dependent => :destroy
 
   validates_presence_of   :name

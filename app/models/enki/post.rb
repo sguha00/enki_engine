@@ -1,10 +1,7 @@
-class Post < ActiveRecord::Base
+class Enki::Post < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
   acts_as_taggable
-
-  has_many                :comments, :dependent => :destroy
-  has_many                :approved_comments, :class_name => 'Comment'
 
   before_validation       :generate_slug
   before_validation       :set_dates

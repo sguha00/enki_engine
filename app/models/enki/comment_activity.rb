@@ -1,4 +1,4 @@
-class CommentActivity
+class Enki::CommentActivity
   attr_accessor :post
 
   def initialize(post)
