@@ -14,15 +14,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-platforms :ruby do
-  gem 'sqlite3-ruby', :require => 'sqlite3'
-end
-
-platforms :jruby do
-  gem 'activerecord-jdbcsqlite3-adapter'
-  gem 'trinidad'
-  gem 'jruby-openssl'
-end
+# Database selection
+gem 'pg'
+#gem 'mysql2'
 
 gem 'jquery-rails'
 
@@ -37,15 +31,10 @@ gem 'jquery-rails'
 
 # Bundle the extra gems:
 gem 'RedCloth', '~> 4.2.9', :require => 'redcloth'
-gem 'ruby-openid', :require => 'openid'
-gem 'rack-openid', :require => 'rack/openid'
 gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
 gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
-gem 'will_paginate', '~> 3.0.2'
-gem 'exception_notification', '~> 2.5.2'
-gem 'open_id_authentication'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -62,4 +51,5 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'jeweler'
 end
