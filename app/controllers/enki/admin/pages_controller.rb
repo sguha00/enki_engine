@@ -6,21 +6,18 @@ module Enki
       def index
         respond_to do |format|
           format.html {
-            @pages = Page.paginate(
-              :order => "created_at DESC",
-              :page  => params[:page]
-            )
+            @pages = Page.order("created_at DESC").page(page_params)
           }
         end
       end
 
       def create
-        @page = Page.new(params[:page])
+        @page = Page.new(page_params)
         if @page.save
           respond_to do |format|
             format.html {
               flash[:notice] = "Created page '#{@page.title}'"
-              redirect_to(:action => 'show', :id => @page)
+              redirect_to enki.admin_page_path(@page)
             }
           end
         else
@@ -31,11 +28,11 @@ module Enki
       end
 
       def update
-        if @page.update_attributes(params[:page])
+        if @page.update_attributes(page_params)
           respond_to do |format|
             format.html {
               flash[:notice] = "Updated page '#{@page.title}'"
-              redirect_to(:action => 'show', :id => @page)
+              redirect_to enki.admin_page_path(@page)
             }
           end
         else
@@ -58,7 +55,7 @@ module Enki
       end
 
       def preview
-        @page = Page.build_for_preview(params[:page])
+        @page = Page.build_for_preview(page_params)
 
         respond_to do |format|
           format.js {
@@ -73,7 +70,7 @@ module Enki
         respond_to do |format|
           format.html do
             flash[:notice] = "Deleted page '#{@page.title}'"
-            redirect_to :action => 'index'
+            redirect_to enki.admin_pages
           end
           format.json {
             render :json => {
@@ -86,6 +83,10 @@ module Enki
       end
 
       protected
+
+      def page_params
+        params[:enki_page]
+      end
 
       def find_page
         @page = Page.find(params[:id])
