@@ -6,21 +6,18 @@ module Enki
       def index
         respond_to do |format|
           format.html {
-            @posts = Post.paginate(
-              :order => "published_at DESC",
-              :page  => params[:page]
-            )
+            @posts = Post.order("published_at DESC").page(params[:page])
           }
         end
       end
 
       def create
-        @post = Post.new(params[:post])
+        @post = Post.new(post_params)
         if @post.save
           respond_to do |format|
             format.html {
               flash[:notice] = "Created post '#{@post.title}'"
-              redirect_to(:action => 'show', :id => @post)
+              redirect_to(enki.admin_post_path(@post))
             }
           end
         else
@@ -31,11 +28,11 @@ module Enki
       end
 
       def update
-        if @post.update_attributes(params[:post])
+        if @post.update_attributes(post_params)
           respond_to do |format|
             format.html {
               flash[:notice] = "Updated post '#{@post.title}'"
-              redirect_to(:action => 'show', :id => @post)
+              redirect_to(enki.admin_post_path(@post))
             }
           end
         else
@@ -58,7 +55,7 @@ module Enki
       end
 
       def preview
-        @post = Post.build_for_preview(params[:post])
+        @post = Post.build_for_preview(post_params)
 
         respond_to do |format|
           format.js {
@@ -73,7 +70,7 @@ module Enki
         respond_to do |format|
           format.html do
             flash[:notice] = "Deleted post '#{@post.title}'"
-            redirect_to :action => 'index'
+            redirect_to admin_posts_path
           end
           format.json {
             render :json => {
@@ -86,6 +83,10 @@ module Enki
       end
 
       protected
+
+      def post_params
+        params[:enki_post]
+      end
 
       def find_post
         @post = Post.find(params[:id])
