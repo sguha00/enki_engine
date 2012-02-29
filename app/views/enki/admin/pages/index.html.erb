@@ -20,12 +20,10 @@
   </tbody>
 
   <tfoot>
-    <% if @pages.total_pages > 1 -%>
-      <tr class="pagination">
-        <td colspan='5'>
-          <%= paginate @pages %>
-        </td>
-      </tr>
-    <% end -%>
+    <tr class="pagination">
+      <td colspan='5'>
+        <%= paginate @pages %>
+      </td>
+    </tr>
   </tfoot>
 </table>

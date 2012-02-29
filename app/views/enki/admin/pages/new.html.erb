@@ -1,8 +1,8 @@
 <h1>New page</h1>
 
-<%= semantic_form_for([:admin, @page]) do |form| -%>
+<%= simple_form_for(@page, :url => enki.admin_pages_path) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} %>
-  <%= form.buttons do -%>
-    <%= form.commit_button("Save") -%>
-  <% end -%>
+  <div class="actions">
+    <button type="submit" class="button">Save</button>
+  </div>
 <% end -%>
