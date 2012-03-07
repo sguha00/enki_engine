@@ -6,7 +6,7 @@
       <th>Published At</th>
       <th>Title</th>
       <th>Excerpt</th>
-      <th>Comments</th>
+      <% if comments? -%><th>Comments</th><% end -%>
       <th>Actions</th>
     </tr>
   </thead>
@@ -19,11 +19,8 @@
     <% end -%>
   </tbody>
 
-  <tfoot>
-    <tr class="pagination">
-      <td colspan="5">
-        <%= paginate @posts %>
-      </td>
-    </tr>
-  </tfoot>
 </table>
+
+<div class="pagination">
+    <%= paginate @posts %>
+</div>
