@@ -1,6 +1,7 @@
 module Enki
   module Admin
     class PagesController < BaseController
+
       before_filter :find_page, :only => [:show, :update, :destroy]
 
       def index

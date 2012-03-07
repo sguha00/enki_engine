@@ -12,7 +12,7 @@ module Enki
       end
 
       def create
-        @post = Post.new(post_params)
+        @post = build_post(post_params)
         if @post.save
           respond_to do |format|
             format.html {
@@ -51,7 +51,7 @@ module Enki
       end
 
       def new
-        @post = Post.new
+        @post = build_post
       end
 
       def preview
@@ -85,7 +85,15 @@ module Enki
       protected
 
       def post_params
-        params[:enki_post]
+        post_attributes.merge(params[:enki_post])
+      end
+
+      def post_attributes
+        super rescue {}
+      end
+
+      def build_post(attributes = {})
+        Post.new(attributes.merge(post_attributes))
       end
 
       def find_post
