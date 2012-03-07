@@ -4,6 +4,10 @@ module Enki
       Post.count
     end
 
+    def page_count
+      Page.count
+    end
+
     def comment_count
       Comment.count
     end
