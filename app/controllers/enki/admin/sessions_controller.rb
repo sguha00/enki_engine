@@ -23,7 +23,7 @@ module Enki
         else
           authenticate_with_open_id(params[:openid_url]) do |result, identity_url|
             if result.successful?
-              if enki_config.author_open_ids.include?(URI.parse(identity_url))
+              if Enki.config.author_open_ids.include?(URI.parse(identity_url))
                 return successful_login
               else
                 flash.now[:error] = "You are not authorized"

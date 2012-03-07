@@ -6,13 +6,13 @@
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
-  <%= open_id_delegation_link_tags(enki_config[:open_id_delegation, :server], enki_config[:open_id_delegation, :delegate]) if enki_config[:open_id_delegation] %>
+  <%= open_id_delegation_link_tags(Enki.config[:open_id_delegation, :server], Enki.config[:open_id_delegation, :delegate]) if Enki.config[:open_id_delegation] %>
   <%= yield(:head) %>
 </head>
 <body>
   <div id="page_container">
     <div id="content">
-      <h1 id="page_heading"><a href="<%= root_url %>"><%= enki_config[:title] %></a></h1>
+      <h1 id="page_heading"><a href="<%= root_url %>"><%= Enki.config[:title] %></a></h1>
 
       <div id="main">
         <%= yield %>
@@ -38,12 +38,12 @@
             <h2><label for="q">Search</label></h2>
 
             <input type="text" id="q" value="" name="q">
-            <input type="hidden" name="sitesearch" value="<%= enki_config[:url] %>">
+            <input type="hidden" name="sitesearch" value="<%= Enki.config[:url] %>">
           </div>
         </form>
       </div>
 
-      <div id="footer"><%= enki_config[:title] %> &#169; <%= enki_config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{enki_config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
+      <div id="footer"><%= Enki.config[:title] %> &#169; <%= Enki.config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{Enki.config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
     </div>
   </div>
 </body>
