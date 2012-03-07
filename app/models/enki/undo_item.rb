@@ -1,5 +1,7 @@
-class Enki::UndoItem < ActiveRecord::Base
-  def process!
-    raise("#process must be implemented by subclasses")
+module Enki
+  class UndoItem < ActiveRecord::Base
+    def process!
+      raise("#process must be implemented by subclasses")
+    end
   end
 end
