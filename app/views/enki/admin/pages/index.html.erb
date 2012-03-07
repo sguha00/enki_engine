@@ -18,12 +18,8 @@
       <%= render :partial => 'page', :collection => @pages %>
     <% end -%>
   </tbody>
-
-  <tfoot>
-    <tr class="pagination">
-      <td colspan='5'>
-        <%= paginate @pages %>
-      </td>
-    </tr>
-  </tfoot>
 </table>
+
+<div class="pagination">
+    <%= paginate @pages %>
+</div>
