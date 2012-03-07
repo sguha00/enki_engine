@@ -1,12 +1,12 @@
 url = if @tag.nil?
-  formatted_posts_path(:format => 'atom', :only_path => false)
+  enki.formatted_posts_path(:format => 'atom', :only_path => false)
 else
-  posts_path(:tag => @tag, :format => 'atom', :only_path => false)
+  enki.posts_path(:tag => @tag, :format => 'atom', :only_path => false)
 end
 
 atom_feed(
   :url         => url,
-  :root_url    => posts_path(:tag => @tag, :only_path => false),
+  :root_url    => enki.posts_path(:tag => @tag, :only_path => false),
   :schema_date => '2008'
 ) do |feed|
   feed.title     posts_title(@tag)
