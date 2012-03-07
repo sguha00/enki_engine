@@ -117,16 +117,6 @@ module Enki
         self.slug = self.title.dup if self.slug.blank?
         self.slug.slugorize!
       end
-
-      # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
-      def tag_list=(value)
-        value = value.join(", ") if value.respond_to?(:join)
-        begin
-          super(value) 
-        rescue NoMethodError
-          logger.warn "Host app tagging plugin should provide tag_list="
-        end
-      end
     end
   end
 end
