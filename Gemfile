@@ -14,27 +14,17 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# Database selection
-gem 'pg'
+# Database selection - uses host app's ORM.
+#gem 'pg'
 #gem 'mysql2'
 
 gem 'jquery-rails'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug'
-
 # Bundle the extra gems:
 gem 'RedCloth', '~> 4.2.9', :require => 'redcloth'
 gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
-gem 'coderay'
-gem 'lesstile'
-gem 'formtastic'
+#gem 'coderay'
+#gem 'lesstile'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -47,6 +37,7 @@ group :test do
   gem 'rspec'
   gem 'nokogiri', '~> 1.5.0'
   gem 'webrat'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
 end
 
 group :development, :test do
