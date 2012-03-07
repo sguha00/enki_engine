@@ -1,6 +1,6 @@
 <div id="summary">
 <h1><%= link_to(enki_config[:title], '/') %></h1>
-<p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>
+<p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.page_count, 'page') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>
 </div>
 
 <div id="recent-posts" class="panel">
@@ -11,6 +11,17 @@
       <h3><%= link_to(truncate(post.title, :length => 50), enki.admin_post_path(post)) %></h3>
       <span class='date'><%= post.published_at.strftime("%b %e") %></span>
       <% if comments? -%><span class='count'><%= link_to(post.approved_comments.size, post_path(post)) %></span><% end -%>
+    </li>
+  <% end -%>
+</ul>
+</div>
+
+<div id="recent-pages" class="panel">
+<h2>Latest Pages</h2>
+<ul>
+  <% @pages.each_with_index do |page, i| -%>
+    <li class="<%= i == 0 ? 'first ' : '' %>item">
+      <h3><%= link_to(truncate(page.title, :length => 50), enki.admin_page_path(page)) %></h3>
     </li>
   <% end -%>
 </ul>
