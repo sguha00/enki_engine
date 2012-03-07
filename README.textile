@@ -4,6 +4,11 @@ A Ruby on Rails blogging app for the fashionable developer.
 
 Preferences are for the masses. Any real coder knows the easiest and best way to customize something is by *hacking code*. Because you want your blog to be you, not bog standard install #4958 with 20 posts per page instead of 15. For this you need a *clean, simple, easy to understand code base* that stays out of your way. No liquid drops and templates hindering your path, no ugly PHP(Hypertext Preprocessor) stylings burning your eyeballs.
 
+h2. Engine Quick Start
+
+* Add to your bundle:
+
+  gem 'enki_engine'
 h2. Quick Start
 
 <pre><code>  git clone git://github.com/xaviershay/enki.git enki
@@ -64,7 +69,9 @@ Admin design heavily inspired by "Habari":http://www.habariproject.org/en/
 
 h2. TODO
 
+* Rename gem to enki_engine (but not namespace)
+* Fix up specs!
+* Properly rip out openid stuff.
 * Generator to install config/enki.yml.
 * Generator to create bare Enki::BaseController and Enki::Admin::BaseController in host app.
-* Properly rip out openid stuff.
-* Fix up specs!
+* Auto-slug generation broken
