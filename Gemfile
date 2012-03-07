@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.1'
+# TODO remove these dependencies and specify the dependencies in enki-engine.gemspec and uncomment the line below
+# gemspec
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -14,17 +14,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# Database selection - uses host app's ORM.
-#gem 'pg'
-#gem 'mysql2'
-
 gem 'jquery-rails'
 
 # Bundle the extra gems:
-gem 'RedCloth', '~> 4.2.9', :require => 'redcloth'
+gem 'RedCloth',       '~> 4.2.9', :require => 'redcloth'
 gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
-#gem 'coderay'
-#gem 'lesstile'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -42,5 +36,4 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'jeweler'
 end
