@@ -11,6 +11,7 @@ module Enki
     include PostsHelper
     include TagHelper
     include UrlHelper
+    include HostHelper
 
   end
 end
