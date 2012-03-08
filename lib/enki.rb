@@ -3,6 +3,6 @@ require 'enki/engine' if defined?(Rails)
 
 module Enki
   def self.config
-    @@config ||= Config.default
+    @@config ||= Enki::Config.default
   end
 end
