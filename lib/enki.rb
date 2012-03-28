@@ -1,3 +1,4 @@
+require 'enki/config'
 require 'enki/version'
 require 'enki/engine' if defined?(Rails)
 
