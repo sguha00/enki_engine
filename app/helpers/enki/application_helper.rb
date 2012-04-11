@@ -1,5 +1,6 @@
 module Enki
   module ApplicationHelper
+    
     def author
       Struct.new(:name, :email).new(Enki.config[:author][:name], Enki.config[:author][:email])
     end

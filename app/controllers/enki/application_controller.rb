@@ -3,15 +3,15 @@ module Enki
 
     protect_from_forgery
 
-    include ApplicationHelper
-    include DateHelper
-    include FormHelper
-    include NavigationHelper
-    include PageTitleHelper
-    include PostsHelper
-    include TagHelper
-    include UrlHelper
-    include HostHelper
+    include Enki::ApplicationHelper
+    include Enki::DateHelper
+    include Enki::FormHelper
+    include Enki::NavigationHelper
+    include Enki::PageTitleHelper
+    include Enki::PostsHelper
+    include Enki::TagHelper
+    include Enki::UrlHelper
+    include Enki::HostHelper
 
   end
 end
