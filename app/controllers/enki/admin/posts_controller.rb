@@ -22,7 +22,7 @@ module Enki
           end
         else
           respond_to do |format|
-            format.html { render :action => 'new',         :status => :unprocessable_entity }
+            format.html { render :action => 'new', :status => :unprocessable_entity }
           end
         end
       end
@@ -37,7 +37,7 @@ module Enki
           end
         else
           respond_to do |format|
-            format.html { render :action => 'show',        :status => :unprocessable_entity }
+            format.html { render :action => 'show', :status => :unprocessable_entity }
           end
         end
       end
@@ -45,7 +45,7 @@ module Enki
       def show
         respond_to do |format|
           format.html {
-            render :partial => 'post', :locals => {:post => @post} if request.xhr?
+            render :partial => @post if request.xhr?
           }
         end
       end
@@ -59,7 +59,7 @@ module Enki
 
         respond_to do |format|
           format.js {
-            render :partial => 'posts/post', :locals => {:post => @post}
+            render :partial => @post
           }
         end
       end

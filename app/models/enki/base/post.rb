@@ -37,7 +37,7 @@ module Enki
 
       class << self
         def build_for_preview(params)
-          post = Post.new(params)
+          post = self.new(params)
           post.generate_slug
           post.set_dates
           post.apply_filter
