@@ -1,7 +1,7 @@
 $(document).ready(function() {
-  var form = $('form.formtastic');
+  var form = $('form.formtastic, form.simple_form');
 
-  if (form.length > 0 && form.attr('id').match(/^(new_post|edit_post|new_page|edit_page)/)) {
+  if (form.length > 0 && form.attr('id').match(/^(new_enki_post|edit_enki_post|new_enki_page|edit_enki_page)/)) {
     var dest = window.location.href;
     dest = dest.replace(/\/(new|\d+)$/, '')
     dest = dest + '/preview'
