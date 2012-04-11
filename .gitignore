@@ -5,6 +5,7 @@ tmp
 config/database.yml
 db/schema.rb
 .bundle
+.rvmrc
 *.log
 *.gem
 
