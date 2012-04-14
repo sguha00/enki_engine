@@ -1,5 +1,5 @@
 module Enki
-  class PagesController < Enki::ApplicationController
+  class PagesController < BaseController
     def show
       @page = Page.find_by_slug(params[:id]) || raise(ActiveRecord::RecordNotFound)
     end

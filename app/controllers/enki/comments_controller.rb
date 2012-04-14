@@ -1,5 +1,5 @@
 module Enki
-  class CommentsController < Enki::ApplicationController
+  class CommentsController < BaseController
     skip_before_filter :verify_authenticity_token, :only => :create
     before_filter :verify_authenticity_token_unless_openid, :only => :create
 

@@ -22,7 +22,7 @@ module Enki
       def update
         if @comment.update_attributes(params[:comment])
           flash[:notice] = "Updated comment by #{@comment.author}"
-          redirect_to :action => 'index'
+          redirect_to [:admin, :comments]
         else
           render :action => 'show'
         end
@@ -34,7 +34,7 @@ module Enki
         respond_to do |format|
           format.html do
             flash[:notice] = "Deleted comment by #{@comment.author}"
-            redirect_to :action => 'index'
+            redirect_to admin_comments_url
           end
           format.json {
             render :json => {
