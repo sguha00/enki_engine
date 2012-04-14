@@ -3,9 +3,10 @@ log
 tmp/**/*
 tmp
 config/database.yml
-db/schema.rb
+schema.rb
 .bundle
 .rvmrc
+*.sqlite3
 *.log
 *.gem
 Gemfile.lock
