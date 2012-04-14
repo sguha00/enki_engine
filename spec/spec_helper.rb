@@ -5,15 +5,20 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
 
-ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
+# Add engine url_helpers to the base test app as we are testing the 
+# engine works not whether rails routing proxies work.
+::ApplicationController.send :include, Enki::Engine.routes.url_helpers
+
+ENGINE_RAILS_ROOT = File.expand_path('../../', __FILE__)
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f }
 
-ENKI_CONFIG = Enki::Config.new(File.expand_path("../dummy/config/enki.yml",  __FILE__))
-
 RSpec.configure do |config|
+  require 'rspec/expectations'
+
+  config.include RSpec::Matchers
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -30,6 +35,17 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  
+  # Ensure the routes used by Rspec are the engine ones
+  config.include RoutesOverrideHelper
+  # Make the engines route helpers available to Rspec.
+  config.include Enki::Engine.routes.url_helpers
+  
+  config.before(:all) do
+    ActiveRecord::Migration.verbose = false
+    ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+    ActiveRecord::Migrator.up([File.expand_path('../../db/migrate', __FILE__)]) { |migration| true }
+  end
 end
 
 module DisableFlashSweeping
