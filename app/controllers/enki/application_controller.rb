@@ -1,7 +1,5 @@
 module Enki
-  class ApplicationController < BaseController
-
-    protect_from_forgery
+  class ApplicationController < ::ApplicationController
 
     include Enki::ApplicationHelper
     include Enki::DateHelper

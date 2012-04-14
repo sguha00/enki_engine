@@ -1,5 +1,5 @@
 module Enki
-  class PostsController < ApplicationController
+  class PostsController < Enki::BaseController
     def index
       @tag = params[:tag]
       @posts = Post.find_recent(:tag => @tag, :include => :tags)
