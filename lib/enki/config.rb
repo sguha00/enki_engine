@@ -23,6 +23,14 @@ module Enki
     def self.default_location
       "#{Rails.root}/config/enki.yml"
     end
+    
+    def comments?
+      self[:features, :comments]
+    end
+    
+    def tags?
+      self[:features, :tags]
+    end
 
     private
 

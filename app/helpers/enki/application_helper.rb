@@ -21,11 +21,11 @@ module Enki
     end
 
     def comments?
-      Enki.config[:features, :comments]
+      Enki.config.comments?
     end
     
     def tags?
-      Enki.config[:features, :tags]
+      Enki.config.tags?
     end
 
   end
