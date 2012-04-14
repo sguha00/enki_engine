@@ -15,7 +15,7 @@
     <% if @comments.empty? -%>
       <tr><td colspan="5">There are no comments at this time.</td></tr>
     <% else -%>
-      <%= render :partial => 'comment', :collection => @comments %>
+      <%= render @comments %>
     <% end -%>
   </tbody>
 

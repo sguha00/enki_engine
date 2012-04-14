@@ -10,7 +10,6 @@ require 'redcloth'
 require 'chronic'
 require 'coderay'
 require 'lesstile'
-require 'formtastic'
 
 module Enki
   class Engine < Rails::Engine
