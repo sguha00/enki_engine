@@ -23,35 +23,24 @@ Gem::Specification.new do |s|
   ]
   s.require_paths = ["lib"]
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  if s.respond_to? :specification_version then
-    s.specification_version = 3
+  s.required_rubygems_version = Gem::Requirement.new(">= 1.2.0") if s.respond_to? :required_rubygems_version=
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<jquery-rails>, [">= 0"])
-      s.add_runtime_dependency(%q<RedCloth>, ["~> 4.2.9"])
-      s.add_runtime_dependency(%q<aaronh-chronic>, [">= 0"])
-      s.add_runtime_dependency(%q<coderay>, [">= 0"])
-      s.add_runtime_dependency(%q<lesstile>, [">= 0"])
-      s.add_runtime_dependency(%q<formtastic>, [">= 0"])
-      s.add_development_dependency(%q<rspec-rails>, [">= 0"])
-    else
-      s.add_dependency(%q<jquery-rails>, [">= 0"])
-      s.add_dependency(%q<RedCloth>, ["~> 4.2.9"])
-      s.add_dependency(%q<aaronh-chronic>, [">= 0"])
-      s.add_dependency(%q<coderay>, [">= 0"])
-      s.add_dependency(%q<lesstile>, [">= 0"])
-      s.add_dependency(%q<formtastic>, [">= 0"])
-      s.add_dependency(%q<rspec-rails>, [">= 0"])
-    end
-  else
-    s.add_dependency(%q<jquery-rails>, [">= 0"])
-    s.add_dependency(%q<RedCloth>, ["~> 4.2.9"])
-    s.add_dependency(%q<aaronh-chronic>, [">= 0"])
-    s.add_dependency(%q<coderay>, [">= 0"])
-    s.add_dependency(%q<lesstile>, [">= 0"])
-    s.add_dependency(%q<formtastic>, [">= 0"])
-    s.add_dependency(%q<rspec-rails>, [">= 0"])
-  end
+  s.add_runtime_dependency 'RedCloth',        "~> 4.2.9"
+  s.add_runtime_dependency 'aaronh-chronic',  ">= 0"
+  s.add_runtime_dependency 'coderay',         ">= 0"
+  s.add_runtime_dependency 'lesstile',        ">= 0"
+  
+  s.add_development_dependency 'acts-as-taggable-on'
+  s.add_development_dependency 'rails',           "~> 3.2"
+  s.add_development_dependency 'rspec-rails',     ">= 2.9"
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'factory_girl'
+  s.add_development_dependency 'nokogiri',        '~> 1.5.0'
+  s.add_development_dependency 'webrat'
+  s.add_development_dependency 'sqlite3'
+
+  # s.add_development_dependency 'cucumber-rails',    :require => false
+  # s.add_development_dependency 'cucumber-websteps', :require => false
 end
+
 
