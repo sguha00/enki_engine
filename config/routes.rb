@@ -1,7 +1,6 @@
 Enki::Engine.routes.draw do
   scope :module => 'enki' do
     namespace :admin do 
-      resource :session
 
       resources :posts, :pages do
         post 'preview', :on => :collection
