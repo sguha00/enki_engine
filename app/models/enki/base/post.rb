@@ -5,6 +5,14 @@ module Enki
 
       acts_as_taggable
 
+      has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
+      has_many :base_tags, :through => :taggings, :source => :tag
+
+      has_many                :comments, :dependent => :destroy
+      has_many                :approved_comments, :class_name => 'Comment'
+
+      attr_accessible         :body, :edited_at, :minor_edit, :published_at, :published_at_natural, :slug, :tag_list, :title
+
       before_validation       :generate_slug
       before_validation       :set_dates
       before_save             :apply_filter
