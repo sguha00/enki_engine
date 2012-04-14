@@ -6,6 +6,8 @@ module Enki
     attr_accessor         :openid_valid
 
     belongs_to            :post
+    
+    attr_accessible       :author, :author_url, :author_email, :body
 
     before_save           :apply_filter
     after_save            :denormalize
