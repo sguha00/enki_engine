@@ -58,6 +58,29 @@ class InitializeDb < ActiveRecord::Migration
       add_column "posts", "approved_comments_count", :integer, :default => 0, :null => false
 
     end 
+    
+    if tags?
+      
+      create_table 'tags' do |t|
+        t.string  'name'
+        t.integer "taggings_count", :default => 0, :null => false
+      end
+
+      create_table 'taggings' do |t|
+        t.references 'tag'
+
+        t.references 'taggable', :polymorphic => true
+        t.references 'tagger', :polymorphic => true
+
+        t.string 'context', :limit => 128
+
+        t.timestamps
+      end
+
+      add_index 'taggings', 'tag_id'
+      add_index 'taggings', ['taggable_id', 'taggable_type', 'context']
+      
+    end
 
   end
 
@@ -65,6 +88,10 @@ class InitializeDb < ActiveRecord::Migration
   
   def comments?
     Enki::Config.default[:features, :comments]
+  end
+  
+  def tags?
+    Enki::Config.default[:features, :tags]
   end
 
 end
