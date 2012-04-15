@@ -10,9 +10,9 @@ module Enki
 
     describe 'handling GET to index' do
       before(:each) do
-        @undo_items = [mock_model(UndoItem)]
+        @undo_items = [mock_model(UndoItem, :created_at => Time.now, :description => "hello", :id => 1)]
         UndoItem.stub!(:find).and_return(@undo_items)
-        session[:logged_in] = true
+
         get :index
       end
 
@@ -30,7 +30,7 @@ module Enki
 
       def do_post
         request.env["HTTP_REFERER"] = "/bogus"
-        session[:logged_in] = true
+
         post :undo, :id => 1
       end
 
@@ -48,7 +48,7 @@ module Enki
 
       def do_post
         request.env["HTTP_REFERER"] = "/bogus"
-        session[:logged_in] = true
+
         post :undo, :id => 1, :format => 'json'
       end
 
@@ -65,7 +65,7 @@ module Enki
 
       def do_post
         request.env["HTTP_REFERER"] = "/bogus"
-        session[:logged_in] = true
+
         post :undo, :id => 1
       end
 
@@ -82,7 +82,7 @@ module Enki
 
       def do_post
         request.env["HTTP_REFERER"] = "/bogus"
-        session[:logged_in] = true
+
         post :undo, :id => 1, :format => 'json'
       end
 
