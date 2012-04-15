@@ -4,7 +4,7 @@ module Enki
       link = Struct.new(:name, :url)
       [link.new("Home", root_path),
        link.new("Archives", archives_path)] +
-        Page.find(:all, :order => 'title').collect {|page| link.new(page.title, page_path(page.slug))}
+        Page.order('title').collect {|page| link.new(page.title, page_path(page.slug))}
     end
 
     def category_links_for_navigation
