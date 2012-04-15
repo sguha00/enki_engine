@@ -4,11 +4,7 @@ module Enki
       before_filter :find_comment, :only => [:show, :update, :destroy]
 
       def index
-        @comments = Comment.paginate(
-          :include => "post",
-          :order => "comments.created_at DESC",
-          :page => params[:page]
-        )
+        @comments = Comment.order("comments.created_at DESC").includes(:post).paginated(params)
       end
 
       def show
