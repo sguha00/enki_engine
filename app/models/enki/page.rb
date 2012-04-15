@@ -1,5 +1,10 @@
 module Enki
   class Page < ActiveRecord::Base
+    
+    extend PaginationShim
+
+    attr_accessible :slug, :title, :body
+    
     validates_presence_of :title, :slug, :body
 
     before_validation     :generate_slug
