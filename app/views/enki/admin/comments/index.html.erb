@@ -14,15 +14,15 @@
     <% if @comments.empty? -%>
       <tr><td colspan="5">There are no comments at this time.</td></tr>
     <% else -%>
-      <%= render @comments %>
+      <%= render :partial => 'enki/admin/comments/comment', :collection => @comments %>
     <% end -%>
   </tbody>
 
   <tfoot>
-    <% if @comments.total_pages > 1 -%>
+    <% if @comments.paginated_pages > 1 -%>
       <tr class="pagination">
         <td colspan='5'>
-          <%= paginate @comments %>
+          <%= paginated @comments %>
         </td>
       </tr>
     <% end -%>
