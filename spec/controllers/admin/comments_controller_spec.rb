@@ -5,6 +5,10 @@ module Enki
 
   describe Admin::CommentsController do
     
+    before do
+      controller.stub!(:logged_in?).and_return(true)
+    end
+    
     describe 'handling GET to index' do
       before(:each) do
         @posts = [mock_model(Comment), mock_model(Comment)]
