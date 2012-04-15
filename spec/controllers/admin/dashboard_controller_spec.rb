@@ -3,6 +3,11 @@ require 'spec_helper'
 module Enki
 
   describe Admin::DashboardController do
+    
+    before do
+      controller.stub!(:logged_in?).and_return(true)
+    end
+    
     describe 'handling GET to show' do
       before(:each) do
         @posts    = [mock_model(Post), mock_model(Post)]

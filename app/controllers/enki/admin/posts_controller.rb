@@ -6,7 +6,7 @@ module Enki
       def index
         respond_to do |format|
           format.html {
-            @posts = Post.order("published_at DESC").page(params[:page])
+            @posts = Post.order("published_at DESC").paginated(params)
           }
         end
       end
