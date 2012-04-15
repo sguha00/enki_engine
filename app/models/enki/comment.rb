@@ -4,7 +4,7 @@ module Enki
 
     belongs_to            :post
     
-    attr_accessible       :author, :author_url, :author_email, :body, :post, :created_at
+    attr_accessible       :author, :author_url, :author_email, :body, :post, :created_at, :body_html, :updated_at
 
     before_save           :apply_filter
     after_save            :denormalize

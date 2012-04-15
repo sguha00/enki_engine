@@ -14,7 +14,8 @@ module Enki
       has_many                :comments, :dependent => :destroy
       has_many                :approved_comments, :class_name => 'Comment'
 
-      attr_accessible         :body, :edited_at, :minor_edit, :published_at, :published_at_natural, :slug, :tag_list, :title
+      attr_accessible         :body, :edited_at, :minor_edit, :published_at, :published_at_natural, :slug, :tag_list, :title,
+                              :body_html, :active, :cached_tag_list, :created_at, :updated_at, :approved_comments_count
 
       before_validation       :generate_slug
       before_validation       :set_dates
