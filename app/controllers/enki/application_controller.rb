@@ -11,5 +11,11 @@ module Enki
     include Enki::UrlHelper
     include Enki::HostHelper
 
+    protected
+
+    def require_login
+      raise NotLoggedInError unless respond_to?(:logged_in?) && logged_in?
+    end
+
   end
 end
