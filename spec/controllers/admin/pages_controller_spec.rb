@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../spec_helper'
+require 'spec_helper'
 
 module Enki
 
@@ -11,7 +11,7 @@ module Enki
     describe 'handling GET to index' do
       before(:each) do
         @pages = [mock_model(Page), mock_model(Page)]
-        Page.stub!(:paginate).and_return(@pages)
+        Page.stub!(:paginated).and_return(@pages)
         session[:logged_in] = true
         get :index
       end
@@ -71,7 +71,7 @@ module Enki
 
       def do_put
         session[:logged_in] = true
-        put :update, :id => 1, :page => {
+        put :update, :id => 1, :enki_page => {
           'title' => 'My Post',
           'slug'  => 'my-post',
           'body'  => 'This is my post'
@@ -104,7 +104,7 @@ module Enki
 
       def do_put
         session[:logged_in] = true
-        put :update, :id => 1, :page => {}
+        put :update, :id => 1, :enki_page => {}
       end
 
       it 'renders show' do
@@ -119,18 +119,19 @@ module Enki
     end
   end
 
-  describe Enki::Admin::PagesController, 'with an AJAX request to preview' do
+  describe Admin::PagesController, 'with an AJAX request to preview' do
     before(:each) do
+      controller.stub!(:logged_in?).and_return(true)
+
       Page.should_receive(:build_for_preview).and_return(@page = mock_model(Page))
-      session[:logged_in] = true
-      xhr :post, :preview, :page => {
+      xhr :post, :preview, :enki_page => {
         :title        => 'My Page',
         :body         => 'body'
       }
     end
 
     it "assigns a new page for the view" do
-      assigns(:page).should == @page
+      assigns[:page].should == @page
     end
   end
 end

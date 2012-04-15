@@ -7,7 +7,7 @@ module Enki
       def index
         respond_to do |format|
           format.html {
-            @pages = Page.order("created_at DESC").page(page_params)
+            @pages = Page.order("created_at DESC").paginated(params)
           }
         end
       end
@@ -60,7 +60,7 @@ module Enki
 
         respond_to do |format|
           format.js {
-            render :partial => 'pages/page', :locals => {:page => @page}
+            render :partial => 'enki/pages/page', :locals => {:page => @page}
           }
         end
       end
