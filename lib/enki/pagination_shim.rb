@@ -11,5 +11,15 @@ module Enki
       end
     end
 
+    def paginated_pages
+      if defined? ::Kaminari
+        num_pages
+      elsif defined? ::WillPagniate
+        total_pages
+      else
+        1
+      end
+    end
+
   end
 end
