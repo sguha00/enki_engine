@@ -10,14 +10,15 @@ module Enki
     
     describe 'handling GET to show' do
       before(:each) do
-        @posts    = [mock_model(Post), mock_model(Post)]
-        @comment_activity = [mock("comment-1"), mock("comment-2")]
+        @pages    = [create(:page), create(:page)]
+        @posts    = [create(:post), create(:post)]
+        @comment_activity = @posts.map { |post| create(:comment, :post => post); CommentActivity.new(post) }
+        Page.stub!(:find_recent).and_return(@pages)
         Post.stub!(:find_recent).and_return(@posts)
-        Stats.stub!(:new).and_return(@stats = Struct.new(:post_count, :comment_count, :tag_count).new(3,2,1))
+        Stats.stub!(:new).and_return(@stats = Struct.new(:post_count, :page_count, :comment_count, :tag_count).new(3,4,2,1))
 
         CommentActivity.stub!(:find_recent).and_return(@comment_activity)
 
-        session[:logged_in] = true
         get :show
       end
 
