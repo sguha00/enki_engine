@@ -42,6 +42,16 @@ module Enki
       def published_at_natural
         @published_at_natural ||= published_at.send_with_default(:strftime, 'now', "%Y-%m-%d %H:%M")
       end
+      
+      def self.paginated(params)
+        if defined? ::Kaminari
+          page params[:page]
+        elsif defined? ::WillPagniate
+          paginate :page => params[:page]
+        else
+          all
+        end
+      end
 
       class << self
         def build_for_preview(params)
