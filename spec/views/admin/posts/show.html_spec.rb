@@ -1,16 +1,16 @@
-require File.dirname(__FILE__) + '/../../../spec_helper'
+require 'spec_helper'
 
-describe "/admin/posts/show.html" do
-  after(:each) do
-    rendered.should be_valid_html5_fragment
+module Enki
+
+  describe "/admin/posts/show.html" do
+    after(:each) do
+      rendered.should be_valid_html5_fragment
+    end
+
+    it 'should render' do
+      assign :post, create(:post)
+      render :template => '/enki/admin/posts/show', :formats => [:html]
+    end
   end
 
-  it 'should render' do
-    assign :post, Post.new(
-      :title        => 'A Post',
-      :published_at => Time.now,
-      :slug         => 'a-post'
-    )
-    render :template => '/admin/posts/show', :formats => [:html]
-  end
 end

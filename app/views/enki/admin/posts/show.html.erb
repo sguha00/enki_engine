@@ -1,7 +1,7 @@
 <h1>Editing post - <%= link_to(@post.title, post_path(@post)) %></h1>
 
-<%= simple_form_for(@post, :url => enki.admin_post_path(@post)) do |form| %>  
-  <%= render :partial => 'form', :locals => {:form => form} %>
+<%= simple_form_for @post, :url => enki.admin_post_path(@post) do |form| %>  
+  <%= render :partial => 'enki/admin/posts/form', :locals => {:form => form} %>
   <div class="actions">
     <button type="submit" class="button">Save</button>
   </div>

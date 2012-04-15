@@ -1,7 +1,7 @@
 <h1>New page</h1>
 
 <%= simple_form_for(@page, :url => enki.admin_pages_path) do |form| -%>
-  <%= render :partial => 'form', :locals => {:form => form} %>
+  <%= render :partial => 'enki/admin/pages/form', :locals => {:form => form} %>
   <div class="actions">
     <button type="submit" class="button">Save</button>
   </div>

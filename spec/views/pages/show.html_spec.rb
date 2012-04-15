@@ -1,24 +1,23 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "/pages/show.html" do
-  include UrlHelper
+module Enki
 
-  before(:each) do
-    view.stub!(:enki_config).and_return(Enki::Config.default)
+  describe "/pages/show.html" do
+    include UrlHelper
 
-    @page = mock_model(Page,
-      :title             => "A page",
-      :body_html         => "Page content!",
-      :slug              => 'a-page'
-    )
-    assign :page, @page
+    before(:each) do
+      view.stub!(:enki_config).and_return(Enki::Config.default)
+
+      assign :page, create(:page)
+    end
+
+    after(:each) do
+      rendered.should be_valid_html5_fragment
+    end
+
+    it "should render a page" do
+      render :template => "/enki/pages/show", :formats => [:html]
+    end
   end
 
-  after(:each) do
-    rendered.should be_valid_html5_fragment
-  end
-
-  it "should render a page" do
-    render :template => "/pages/show", :formats => [:html]
-  end
 end
