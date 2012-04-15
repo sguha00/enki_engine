@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] ||= 'test'
 # See http://reinteractive.net/posts/2-start-your-engines for useful info regarding testing Engines.
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
+require 'factory_girl_rails'
 
 # Add engine url_helpers to the base test app as we are testing the 
 # engine works not whether rails routing proxies work.
@@ -36,6 +37,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   
+  config.include FactoryGirl::Syntax::Methods
+  
   # Ensure the routes used by Rspec are the engine ones
   config.include RoutesOverrideHelper
   # Make the engines route helpers available to Rspec.
@@ -46,6 +49,9 @@ RSpec.configure do |config|
     ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
     ActiveRecord::Migrator.up([File.expand_path('../../db/migrate', __FILE__)]) { |migration| true }
   end
+  
+  config.render_views
+  
 end
 
 module DisableFlashSweeping

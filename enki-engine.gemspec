@@ -26,15 +26,16 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2.0") if s.respond_to? :required_rubygems_version=
 
   s.add_runtime_dependency 'RedCloth',        "~> 4.2.9"
-  s.add_runtime_dependency 'aaronh-chronic',  ">= 0"
-  s.add_runtime_dependency 'coderay',         ">= 0"
-  s.add_runtime_dependency 'lesstile',        ">= 0"
+  s.add_runtime_dependency 'aaronh-chronic'
+  s.add_runtime_dependency 'coderay'
+  s.add_runtime_dependency 'lesstile'
+  s.add_runtime_dependency 'simple_form'
   
   s.add_development_dependency 'acts-as-taggable-on'
   s.add_development_dependency 'rails',           "~> 3.2"
   s.add_development_dependency 'rspec-rails',     ">= 2.9"
   s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'factory_girl'
+  s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'nokogiri',        '~> 1.5.0'
   s.add_development_dependency 'webrat'
   s.add_development_dependency 'sqlite3'
