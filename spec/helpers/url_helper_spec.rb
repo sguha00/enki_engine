@@ -4,10 +4,10 @@ module Enki
   describe UrlHelper do
     include UrlHelper
 
-    def enki_config
+    before do
       config = double('config')
       config.should_receive('[]').with(:engine, :mount_at).and_return('')
-      config
+      Enki.stub!(:config).and_return(config)
     end
 
     describe '#post_path' do
