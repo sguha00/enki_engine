@@ -18,12 +18,11 @@ Enki::Engine.routes.draw do
     resources :pages, :only => [:show]
   end
 
-  
   constraints :year => /\d{4}/, :month => /\d{2}/, :day => /\d{2}/ do
-    #get ':year/:month/:day/:slug/comments'  => 'enki/comments#index'
-    #post ':year/:month/:day/:slug/comments' => 'enki/comments#create'
-    #get ':year/:month/:day/:slug/comments/new' => 'enki/comments#new'
-    get ':year/:month/:day/:slug' => 'enki/posts#show'
+    get   ':year/:month/:day/:slug/comments'     => 'enki/comments#index'
+    post  ':year/:month/:day/:slug/comments'     => 'enki/comments#create'
+    get   ':year/:month/:day/:slug/comments/new' => 'enki/comments#new'
+    get   ':year/:month/:day/:slug'              => 'enki/posts#show'
   end
 
   scope :to => 'enki/posts#index' do

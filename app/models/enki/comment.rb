@@ -2,9 +2,6 @@ module Enki
   class Comment < ActiveRecord::Base
     DEFAULT_LIMIT = 15
 
-    attr_accessor         :openid_error
-    attr_accessor         :openid_valid
-
     belongs_to            :post
     
     attr_accessible       :author, :author_url, :author_email, :body
@@ -14,25 +11,9 @@ module Enki
     after_destroy         :denormalize
 
     validates_presence_of :author, :body, :post
-    validate :open_id_error_should_be_blank
-
-    def open_id_error_should_be_blank
-      errors.add(:base, openid_error) unless openid_error.blank?
-    end
 
     def apply_filter
       self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => Lesstile::CodeRayFormatter)
-    end
-
-    def blank_openid_fields
-      self.author_url = ""
-      self.author_email = ""
-    end
-
-    def requires_openid_authentication?
-      return false unless author
-
-      !!(author =~ %r{^https?://} || author.index('.'))
     end
 
     def trusted_user?
@@ -78,12 +59,7 @@ module Enki
       end
 
       def build_for_preview(params)
-        comment = Comment.new_with_filter(params)
-        if comment.requires_openid_authentication?
-          comment.author_url = comment.author
-          comment.author     = "Your OpenID Name"
-        end
-        comment
+        Comment.new_with_filter(params)
       end
 
       def find_recent(options = {})

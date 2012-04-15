@@ -43,9 +43,9 @@ class InitializeDb < ActiveRecord::Migration
 
       create_table "comments" do |t|
         t.integer  "post_id",                 :null => false
-        t.string   "author",                  :null => false
-        t.string   "author_url",              :null => false
-        t.string   "author_email",            :null => false
+        t.string   "author"
+        t.string   "author_url"
+        t.string   "author_email"
         t.text     "body",                    :null => false
         t.text     "body_html",               :null => false
 
