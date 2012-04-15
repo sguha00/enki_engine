@@ -4,6 +4,16 @@ FactoryGirl.define do
     a.name 'Tag'
   end
 
+  factory :page, :class => Enki::Post do |a|
+    a.title     'A page'
+    a.slug      'a-page'
+    a.body      'This is a page'
+
+    a.published_at 1.day.ago
+    a.created_at   1.day.ago
+    a.updated_at   1.day.ago
+  end
+
   factory :post, :class => Enki::Post do |a|
     a.title     'A post'
     a.slug      'a-post'
