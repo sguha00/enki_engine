@@ -10,8 +10,9 @@ module Enki
 
     describe 'handling GET to index' do
       before(:each) do
-        @posts = [mock_model(Post), mock_model(Post)]
-        Post.stub!(:all).and_return(@posts)
+        @posts = [create(:post), create(:post)]
+        Post.stub!(:paginated).and_return(@posts)
+        
         get :index
       end
 
@@ -30,9 +31,9 @@ module Enki
 
     describe 'handling GET to show' do
       before(:each) do
-        @post = mock_model(Post)
-        Post.stub!(:find).and_return(@post)
-        get :show, :id => 1
+        @post = create(:post)
+        
+        get :show, :id => @post.to_param
       end
 
       it "is successful" do
@@ -50,8 +51,9 @@ module Enki
 
     describe 'handling GET to new' do
       before(:each) do
-        @post = mock_model(Post)
+        @post = build(:post)
         Post.stub!(:new).and_return(@post)
+        
         get :new
       end
 
@@ -63,19 +65,19 @@ module Enki
       before(:each) do
         @post = mock_model(Post, :title => 'A post')
         @post.stub!(:update_attributes).and_return(true)
+        
         Post.stub!(:find).and_return(@post)
       end
 
       def do_put
-        session[:logged_in] = true
         put :update, :id => 1, :enki_post => valid_post_attributes
       end
 
       it 'updates the post' do
         published_at = Time.now
         @post.should_receive(:update_attributes).with(valid_post_attributes)
-
         Time.stub!(:now).and_return(published_at)
+
         do_put
       end
 
@@ -88,24 +90,14 @@ module Enki
 
     describe 'handling PUT to update with invalid attributes' do
       before(:each) do
-        @post = mock_model(Post)
-        @post.stub!(:update_attributes).and_return(false)
-        Post.stub!(:find).and_return(@post)
+        @post = create(:post)
+        Post.any_instance.stub(:update_attributes).and_return(false)
+
+        put :update, :id => @post.to_param, :enki_post => {}
       end
 
-      def do_put
-        put :update, :id => 1, :enki_post => {}
-      end
-
-      it 'renders show' do
-        do_put
-        response.should render_template('show')
-      end
-
-      it 'is unprocessable' do
-        do_put
-        response.status.should == 422
-      end
+      it { should render_template('show') }
+      its(:status) { should be 422 }
     end
 
     describe 'handling POST to create with valid attributes' do
@@ -130,7 +122,6 @@ module Enki
       end
 
       def do_delete
-        session[:logged_in] = true
         delete :destroy, :id => 1
       end
 
@@ -159,11 +150,13 @@ module Enki
 
       it("deletes post") do
         @post.should_receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
+        
         do_delete
       end
 
       it("renders json including a description of the post") do
         do_delete
+        
         JSON.parse(response.body)['undo_message'].should == 'hello'
       end
     end
@@ -172,8 +165,9 @@ module Enki
   describe Admin::PostsController, 'with an AJAX request to preview' do
     before(:each) do
       controller.stub!(:logged_in?).and_return(true)
+      @post = build(:post)
+      Post.should_receive(:build_for_preview).and_return(@post)
       
-      Post.should_receive(:build_for_preview).and_return(@post = mock_model(Post))
       xhr :post, :preview, :enki_post => {
         :title        => 'My Post',
         :body         => 'body',
