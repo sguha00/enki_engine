@@ -15,7 +15,7 @@
     <% if @pages.empty? -%>
       <tr><td colspan="5">There are no pages at this time.</td></tr>
     <% else -%>
-      <%= render :partial => 'page', :collection => @pages %>
+      <%= render :partial => 'enki/admin/pages/page', :collection => @pages %>
     <% end -%>
   </tbody>
 </table>

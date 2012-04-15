@@ -1,6 +1,8 @@
 module Enki
   class Comment < ActiveRecord::Base
     DEFAULT_LIMIT = 15
+    
+    extend PaginationShim
 
     belongs_to            :post
     

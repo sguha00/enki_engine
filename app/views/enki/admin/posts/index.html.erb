@@ -15,7 +15,7 @@
     <% if @posts.empty? -%>
       <tr><td colspan="5">There are no posts at this time.</td></tr>
     <% else -%>
-      <%= render :partial => 'post', :collection => @posts %>
+      <%= render :partial => 'enki/admin/posts/post', :collection => @posts %>
     <% end -%>
   </tbody>
 
