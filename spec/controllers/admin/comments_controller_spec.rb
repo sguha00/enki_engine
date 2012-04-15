@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../spec_helper'
+require 'spec_helper'
 require 'json'
 
 module Enki
@@ -11,9 +11,8 @@ module Enki
     
     describe 'handling GET to index' do
       before(:each) do
-        @posts = [mock_model(Comment), mock_model(Comment)]
-        Comment.stub!(:paginate).and_return(@comments)
-        session[:logged_in] = true
+        @comments = [create(:comment), create(:comment)].extend(Enki::PaginationShim)
+        Comment.stub_chain(:order, :includes, :paginated).and_return(@comments)
         get :index
       end
 
@@ -26,7 +25,6 @@ module Enki
       before(:each) do
         @comment = Comment.new
         Comment.stub!(:find).and_return(@comment)
-        session[:logged_in] = true
         get :show, :id => 1
       end
 
