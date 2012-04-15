@@ -1,6 +1,8 @@
 module Enki
   module Admin
     class BaseController < Enki::ApplicationController
+      
+      before_filter :require_login
 
       protected
 
