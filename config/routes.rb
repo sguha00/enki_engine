@@ -15,7 +15,7 @@ Enki::Engine.routes.draw do
       root :to => 'dashboard#show'
     end
     resources :archives, :only => [:index]
-    resources :pages, :except => [:edit]
+    resources :pages, :only => [:show]
   end
 
   constraints :year => /\d{4}/, :month => /\d{2}/, :day => /\d{2}/ do
@@ -27,7 +27,7 @@ Enki::Engine.routes.draw do
 
   scope :to => 'enki/posts#index' do
     get 'posts.:format', :as => :formatted_posts
-    get 'tags/(:tag)', :as => :posts
+    get '(:tag)', :as => :posts
   end
 
   root :to => 'enki/posts#index'
