@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 module Enki
   
@@ -108,15 +108,16 @@ module Enki
 
   describe CommentsController, 'with an AJAX request to new' do
     before(:each) do
-      Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
+      @comment = build(:comment, :created_at => Time.local(2007, 01, 01))
+      Comment.should_receive(:build_for_preview).and_return(@comment)
 
       xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
         :author => 'Don Alias',
         :body   => 'A comment'
       }
-      response.should be_success
     end
 
+    its(:response) { should be_success }
     it "assigns a new comment for the view" do
       assigns(:comment).should == @comment
     end
