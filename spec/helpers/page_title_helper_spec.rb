@@ -1,11 +1,13 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 module Enki
   describe PageTitleHelper do
     include PageTitleHelper
 
-    def enki_config
-      {:title => 'Blog Title'}
+    before do
+      config = double('config')
+      config.stub!('[]').with(:title).and_return('Blog Title')
+      Enki.stub!(:config).and_return(config)
     end
 
     describe '#posts_title with no tag' do
