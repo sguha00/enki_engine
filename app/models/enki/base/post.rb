@@ -25,6 +25,39 @@ module Enki
 
       validate                :validate_published_at_natural
 
+      #------------------------------
+      # Scopes
+      #------------------------------
+      def self.published_desc
+        order('posts.published_at DESC')
+      end
+
+      def self.only_published
+        where(['published_at < ?', Time.zone.now])
+      end
+
+      def self.find_recent(options = {})
+        tag     = options.delete(:tag)
+        limit   = options.delete(:limit) || DEFAULT_LIMIT
+
+        query = tag ? tagged_with(tag) : self
+        query = query.only_published.published_desc.limit(limit)
+
+        return options.empty? ? query : all(options)
+      end
+
+
+      #------------------------------
+      # Class Methods
+      #------------------------------
+      def self.default_limit
+        DEFAULT_LIMIT
+      end
+
+
+      #------------------------------
+      # Instance Methods
+      #------------------------------
       def validate_published_at_natural
         errors.add("published_at_natural", "Unable to parse time") unless published?
       end
@@ -57,20 +90,6 @@ module Enki
             post.tags << Tag.new(:name => tag)
           end
           post
-        end
-
-        def find_recent(options = {})
-          tag = options.delete(:tag)
-          options = {
-            :order      => 'posts.published_at DESC',
-            :conditions => ['published_at < ?', Time.zone.now],
-            :limit      => DEFAULT_LIMIT
-          }.merge(options)
-          if tag
-            find_tagged_with(tag, options)
-          else
-            find(:all, options)
-          end
         end
 
         def find_by_permalink(year, month, day, slug, options = {})
