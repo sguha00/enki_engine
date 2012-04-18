@@ -1,2 +1,0 @@
-* Remove all the dependencies in the Gemfile and update the .gemspec
-* Add the migrations that are currently sitting in the study_collection admin-blogging-engine branch

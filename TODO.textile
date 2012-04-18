@@ -1,0 +1,8 @@
+* Change all author references to refer to an author_id and appropriate user model.
+* Convert finders to scopes and AR3 sytax.
+* Restore integration tests but probably not Cucumber.
+* Properly rip out openid stuff.
+* Generator to install config/enki.yml.
+* Generator to create bare Enki::BaseController and Enki::Admin::BaseController in host app.
+* Auto-slug generation broken?
+* Do something with the CSS?
