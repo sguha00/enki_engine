@@ -14,61 +14,61 @@ h2. Quick Start
   
 * Create a config/enki.yml like the one below until I write a generator. Hint! Hint!
 
-<pre><code>  # Configuration options for your blog - customise to taste
-  # This file contains no secret information, so can be stored in source control (unlike database.yml)
-  title: Articles
-  url: http://enkiblog.com/posts
-  author:
-    name:    Don Alias        # For copyright notice and ATOM feeds
-    email:   don@enkiblog.com # Exception emails will go here, and it is used in ATOM feeds
-    open_id:                  # These are used to login to the admin area
-        - http://enkiblog.com
-        - http://secondaryopenid.com
+<pre><code># Configuration options for your blog - customise to taste
+# This file contains no secret information, so can be stored in source control (unlike database.yml)
+title: Articles
+url: http://enkiblog.com/posts
+author:
+  name:    Don Alias        # For copyright notice and ATOM feeds
+  email:   don@enkiblog.com # Exception emails will go here, and it is used in ATOM feeds
+  open_id:                  # These are used to login to the admin area
+      - http://enkiblog.com
+      - http://secondaryopenid.com
 
-  engine:
-    mount_at: /content
-    pages_at: /
+engine:
+  mount_at: /content
+  pages_at: /
 
-  features:
-    comments: false
-    tags: true
-    form_helper: false</pre></code> 
+features:
+  comments: false
+  tags: true
+  form_helper: false</pre></code> 
 
 * A good place to start customizing is with Enki::Admin::BaseController, as you may want some authentication & authorization from the host app
 
-<pre><code>  # app/models/enki/post.rb
-  module Enki
-    class Post < Base::Post
+<pre><code># app/models/enki/post.rb
+module Enki
+  class Post < Base::Post
 
-      belongs_to :author, :class_name => 'User'
+    belongs_to :author, :class_name => 'User'
 
-      validates_presence_of :author_id
+    validates_presence_of :author_id
+
+  end
+end
+
+# app/controllers/enki/admin/base_controller.rb
+module Enki
+  module Admin
+    class BaseController < Enki::ApplicationController
+
+      before_filter :require_account, :authorize
+
+      protected
+
+      # Post management is a proxy for all blog abilities.
+      def authorize
+        raise CanCan::AccessDenied unless can?(:manage, Enki::Post)
+      end
+        
+      # requires a migration to put the author_id into posts and pages
+      def post_attributes
+        {:author => current_user}
+      end
 
     end
   end
-
-  # app/controllers/enki/admin/base_controller.rb
-  module Enki
-    module Admin
-      class BaseController < Enki::ApplicationController
-
-        before_filter :require_account, :authorize
-
-        protected
-
-        # Post management is a proxy for all blog abilities.
-        def authorize
-          raise CanCan::AccessDenied unless can?(:manage, Enki::Post)
-        end
-        
-        # requires a migration to put the author_id into posts and pages
-        def post_attributes
-          {:author => current_user}
-        end
-
-      end
-    end
-  end</pre></code>
+end</pre></code>
   
 * Read the code and improve it at will.
 
