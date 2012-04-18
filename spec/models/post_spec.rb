@@ -1,6 +1,36 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 module Enki
+  
+  describe "Scopes" do
+    
+    describe "find_recent" do
+      
+      before do
+        Base::Post.send(:remove_const, :DEFAULT_LIMIT)
+        Base::Post::DEFAULT_LIMIT = 3
+        
+        now = Time.now
+        Time.stub!(:now).and_return(now)
+
+        @post1 = create(:post, :published_at => 1.day.ago)
+        @post2 = create(:post, :published_at => 1.month.ago, :tag_list => 'yikes')
+        @post3 = create(:post, :published_at => 1.week.ago)
+        @post4 = create(:post, :published_at => 1.year.ago, :tag_list => 'yikes')
+        2.times { create(:post, :published_at => 1.days.since) }
+      end
+      
+      it 'finds the most recent posts that were published before now' do
+        Post.find_recent.should == [@post1, @post3, @post2]
+      end
+
+      it 'finds the most recent posts that were published before now with a tag' do
+        Post.find_recent(:tag => 'yikes').should == [@post2, @post4]
+      end
+      
+    end
+    
+  end
 
   describe Post, "integration" do
     describe 'setting tag_list' do
@@ -15,27 +45,6 @@ module Enki
   end
 
   describe Post, ".find_recent" do
-    it 'finds the most recent posts that were published before now' do
-      now = Time.now
-      Time.stub!(:now).and_return(now)
-      Post.should_receive(:find).with(:all, {
-        :order      => 'posts.published_at DESC',
-        :conditions => ['published_at < ?', now],
-        :limit      => Post::DEFAULT_LIMIT
-      })
-      Post.find_recent
-    end
-
-    it 'finds the most recent posts that were published before now with a tag' do
-      now = Time.now
-      Time.stub!(:now).and_return(now)
-      Post.should_receive(:find_tagged_with).with('code', {
-        :order      => 'posts.published_at DESC',
-        :conditions => ['published_at < ?', now],
-        :limit      => Post::DEFAULT_LIMIT
-      })
-      Post.find_recent(:tag => 'code')
-    end
 
     it 'finds all posts grouped by month' do
       now = Time.now
