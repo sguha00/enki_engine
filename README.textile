@@ -13,8 +13,8 @@ h2. Quick Start
   rake enki:install:migrations
   
 * Create a config/enki.yml like the one below until I write a generator. Hint! Hint!
-<pre><code>
-  # Configuration options for your blog - customise to taste
+
+<pre><code>  # Configuration options for your blog - customise to taste
   # This file contains no secret information, so can be stored in source control (unlike database.yml)
   title: Articles
   url: http://enkiblog.com/posts
@@ -32,11 +32,11 @@ h2. Quick Start
   features:
     comments: false
     tags: true
-    form_helper: false 
-</pre></code>
+    form_helper: false</pre></code> 
+
 * A good place to start customizing is with Enki::Admin::BaseController, as you may want some authentication & authorization from the host app
-<pre><code>
-  # app/models/enki/post.rb
+
+<pre><code>  # app/models/enki/post.rb
   module Enki
     class Post < Base::Post
 
@@ -68,8 +68,8 @@ h2. Quick Start
 
       end
     end
-  end
-</pre></code>  
+  end</pre></code>
+  
 * Read the code and improve it at will.
 
 h2. More info
