@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
   s.name        = "enki-engine"
   s.version     = Enki::VERSION
   s.date        = "2012-02-22"
-  s.authors     = ["Andy Triggs"]
-  s.email       = ["andy.triggs@gmail.com"]
-  s.homepage    = "http://github.com/andyt"
-  s.summary     = %Q{Enki blog engine}
+  s.authors     = ["James McCarthy", "Andy Triggs", "Xavier Shay"]
+  s.email       = ["james2mccarthy@gmail.com"]
+  s.homepage    = "http://github.com/ThisIsHatch/enki_engine"
+  s.summary     = %Q{A Rails3 engine adapted from Xavier Shay's Enki blogging app}
   s.description = %Q{An adaptation of the Enki blogging application as a Rails::Engine, for mounting in a host application}
 
   s.rubyforge_project = "enki-engine"
@@ -34,12 +34,12 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'acts-as-taggable-on'
   s.add_development_dependency 'rails',           "~> 3.2"
   s.add_development_dependency 'rspec-rails',     ">= 2.9"
-  s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'nokogiri',        '~> 1.5.0'
   s.add_development_dependency 'webrat'
   s.add_development_dependency 'sqlite3'
 
+  # s.add_development_dependency 'database_cleaner'
   # s.add_development_dependency 'cucumber-rails',    :require => false
   # s.add_development_dependency 'cucumber-websteps', :require => false
 end
