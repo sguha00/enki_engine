@@ -2,11 +2,11 @@ module Enki
   module UrlHelper
     def post_path(post, options = {})
       suffix = options[:anchor] ? "##{options[:anchor]}" : ""
-      path = post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix
+      path = [Enki.config[:engine, :mount_at], post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix].join
       if options[:only_path] == false
-        URI.join(Enki.config[:url], Enki.config[:engine, :mount_at], path) 
+        URI.join(Enki.config[:url], path) 
       else
-        [Enki.config[:engine, :mount_at], path].join
+        path
       end
     end
 
