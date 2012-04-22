@@ -4,7 +4,7 @@ module Enki
       suffix = options[:anchor] ? "##{options[:anchor]}" : ""
       path = post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix
       if options[:only_path] == false
-        URI.join(Enki.config[:url], path) 
+        URI.join(Enki.config[:url], Enki.config[:engine, :mount_at], path) 
       else
         [Enki.config[:engine, :mount_at], path].join
       end
