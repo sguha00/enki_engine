@@ -29,7 +29,7 @@ module Enki
 
     class << self
       def create_undo(post)
-        DeletePostUndo.create!(:data => {:post => post.attributes, :comments => post.comments.collect(&:attributes)}.to_yaml)
+        DeletePostUndo.create!(:data => {:post => post.attributes, :comments => Enki.config.comments? && post.comments.collect(&:attributes)}.to_yaml)
       end
     end
   end

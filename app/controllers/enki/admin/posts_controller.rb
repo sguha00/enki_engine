@@ -74,7 +74,7 @@ module Enki
           end
           format.json {
             render :json => {
-              :undo_path    => undo_admin_undo_item_path(undo_item),
+              :undo_path    => enki.undo_admin_undo_item_path(undo_item),
               :undo_message => undo_item.description,
               :post         => @post.attributes
             }
