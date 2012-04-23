@@ -11,9 +11,11 @@ module Enki
       has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
       has_many :base_tags, :through => :taggings, :source => :tag
 
-      has_many                :comments, :dependent => :destroy
-      has_many                :approved_comments, :class_name => 'Comment'
-
+      if Enki.config.comments?
+        has_many                :comments, :dependent => :destroy
+        has_many                :approved_comments, :class_name => 'Comment'
+      end
+      
       attr_accessible         :body, :edited_at, :minor_edit, :published_at, :published_at_natural, :slug, :tag_list, :title,
                               :body_html, :active, :cached_tag_list, :created_at, :updated_at, :approved_comments_count, :author
 
