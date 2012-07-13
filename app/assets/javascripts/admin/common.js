@@ -1,20 +1,20 @@
+var undo_stack = [];
+
 jQuery.delegate = function(rules) {
   return function(e) {
     var target = $(e.target);
-    for (var selector in rules)
-      if (target.is(selector)) return rules[selector].apply(this, $.makeArray(arguments));
-  }
-}
+    for (var selector in rules) {
+      if (target.is(selector)) {
+        return rules[selector].apply(this, $.makeArray(arguments));
+      }
+    }
+  };
+};
 
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");
   xhr.setRequestHeader("X-CSRF-Token", token);
 });
-
-function restripe() {
-  $('table tr:odd').removeClass('alt');
-  $('table tr:even').addClass('alt');
-}
 
 function asyncDeleteForm(obj, options) {
   $.ajax($.extend({
@@ -25,7 +25,7 @@ function asyncDeleteForm(obj, options) {
     },
     dataType: 'json',
     success: function(msg){
-      display = msg.undo_message
+      display = msg.undo_message;
       if (msg.undo_path) {
         display += '<span class="undo-link"> (<a class="undo-link" href="' + msg.undo_path + '">undo</a>)</span>';
         undo_stack.push(msg.undo_path);
@@ -56,7 +56,9 @@ function processUndo(path, options) {
 
   // Assume success and remove undo link
   $('a.undo-link[href=' + path + ']').parent('span').hide();
-  undo_stack = jQuery.grep(undo_stack, function(e) { return e != path });
+  undo_stack = jQuery.grep(undo_stack, function(e) {
+    return e != path;
+  });
 }
 
 function asyncUndoBehaviour(options) {
@@ -69,22 +71,20 @@ function asyncUndoBehaviour(options) {
   jQuery.each(["Ctrl+Z", "Meta+Z"], function () {
     shortcut.add(this, function() {
       item = undo_stack.pop();
-      if (item)
-        processUndo(item, options)
-      else
+      if (item) {
+        processUndo(item, options);
+      } else {
         humanMsg.displayMsg("Nothing to undo");
+      }
     });
   });
 }
-
-var undo_stack = new Array();
 
 function onDeleteFormClick() {
   asyncDeleteForm($(this));
 
   // Assume success and remove item
   $(this).parent('td').parent('tr').remove();
-  restripe();
   return false;
 }
 
@@ -98,13 +98,12 @@ function destroyAndUndoBehaviour(type) {
 
           $('form.delete-item').unbind('submit', onDeleteFormClick);
           $('form.delete-item').submit(onDeleteFormClick);
-          restripe();
         });
-      },
+      }
     });
 
     $('form.delete-item').submit(onDeleteFormClick);
-  }
+  };
 }
 
 $(document).ready(function() {

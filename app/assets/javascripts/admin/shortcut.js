@@ -14,39 +14,64 @@ shortcut = {
 			'disable_in_input':false,
 			'target':document,
 			'keycode':false
-		}
-		if(!opt) opt = default_options;
-		else {
+		};
+		if(!opt) {
+		  opt = default_options;
+		} else {
 			for(var dfo in default_options) {
-				if(typeof opt[dfo] == 'undefined') opt[dfo] = default_options[dfo];
+				if(typeof opt[dfo] == 'undefined') {
+          opt[dfo] = default_options[dfo];
+        }
 			}
 		}
 
-		var ele = opt.target
-		if(typeof opt.target == 'string') ele = document.getElementById(opt.target);
-		var ths = this;
+		var ele = opt.target,
+		    ths = this;
+
+		if(typeof opt.target === 'string') {
+      ele = document.getElementById(opt.target);
+    }
 		shortcut_combination = shortcut_combination.toLowerCase();
 
 		//The function to be called at keypress
 		var func = function(e) {
 			e = e || window.event;
 
-			if(opt['disable_in_input']) { //Don't enable shortcut keys in Input, Textarea fields
+			if(opt.disable_in_input) { //Don't enable shortcut keys in Input, Textarea fields
 				var element;
-				if(e.target) element=e.target;
-				else if(e.srcElement) element=e.srcElement;
-				if(element.nodeType==3) element=element.parentNode;
+				if(e.target) {
+          element=e.target;
+        }
+				else if(e.srcElement) {
+          element=e.srcElement;
+        }
+				if(element.nodeType==3) {
+          element=element.parentNode;
+        }
 
-				if(element.tagName == 'INPUT' || element.tagName == 'TEXTAREA') return;
+				if(element.tagName == 'INPUT' || element.tagName == 'TEXTAREA') {
+          return;
+        }
 			}
 
 			//Find Which key is pressed
-			if (e.keyCode) code = e.keyCode;
-			else if (e.which) code = e.which;
+			if (e.keyCode) {
+        code = e.keyCode;
+      }
+			else if (e.which) {
+        code = e.which;
+      }
 			var character = String.fromCharCode(code).toLowerCase();
 
-			if(code == 188) character=","; //If the user presses , when the type is onkeydown
-			if(code == 190) character="."; //If the user presses , when the type is onkeydown
+      //If the user presses , when the type is onkeydown
+			if(code == 188) {
+        character=",";
+      }
+
+      //If the user presses , when the type is onkeydown
+			if(code == 190) {
+        character=".";
+      }
 
 			var keys = shortcut_combination.split("+");
 			//Key Pressed - counts the number of valid keypresses - if it is same as the number of keys, the shortcut function is invoked
@@ -73,7 +98,7 @@ shortcut = {
 				".":">",
 				"/":"?",
 				"\\":"|"
-			}
+			};
 			//Special Keys - and their codes
 			var special_keys = {
 				'esc':27,
@@ -127,7 +152,7 @@ shortcut = {
 				'f10':121,
 				'f11':122,
 				'f12':123
-			}
+			};
 
 			var modifiers = {
 				shift: { wanted:false, pressed:false},
@@ -136,12 +161,21 @@ shortcut = {
 				meta : { wanted:false, pressed:false}	//Meta is Mac specific
 			};
 
-			if(e.ctrlKey)	modifiers.ctrl.pressed = true;
-			if(e.shiftKey)	modifiers.shift.pressed = true;
-			if(e.altKey)	modifiers.alt.pressed = true;
-			if(e.metaKey)   modifiers.meta.pressed = true;
+			if(e.ctrlKey)	{
+        modifiers.ctrl.pressed = true;
+      }
+			if(e.shiftKey) {
+        modifiers.shift.pressed = true;
+      }
+			if(e.altKey) {
+        modifiers.alt.pressed = true;
+      }
+			if(e.metaKey) {
+        modifiers.meta.pressed = true;
+      }
 
-			for(var i=0; k=keys[i],i<keys.length; i++) {
+			for(var i=0; i<keys.length; i++) {
+        var k=keys[i];
 				//Modifiers
 				if(k == 'ctrl' || k == 'control') {
 					kp++;
@@ -158,17 +192,24 @@ shortcut = {
 					kp++;
 					modifiers.meta.wanted = true;
 				} else if(k.length > 1) { //If it is a special key
-					if(special_keys[k] == code) kp++;
+					if(special_keys[k] == code) {
+            kp++;
+          }
 
-				} else if(opt['keycode']) {
-					if(opt['keycode'] == code) kp++;
+				} else if(opt.keycode) {
+					if(opt.keycode == code) {
+            kp++;
+          }
 
 				} else { //The special keys did not match
-					if(character == k) kp++;
-					else {
+					if(character == k) {
+            kp++;
+          } else {
 						if(shift_nums[character] && e.shiftKey) { //Stupid Shift key bug created by using lowercase
 							character = shift_nums[character];
-							if(character == k) kp++;
+							if(character == k) {
+                kp++;
+              }
 						}
 					}
 				}
@@ -181,7 +222,7 @@ shortcut = {
 						modifiers.meta.pressed == modifiers.meta.wanted) {
 				callback(e);
 
-				if(!opt['propagate']) { //Stop the event
+				if(!opt.propagate) { //Stop the event
 					//e.cancelBubble is supported by IE - this will kill the bubbling process.
 					e.cancelBubble = true;
 					e.returnValue = false;
@@ -194,30 +235,40 @@ shortcut = {
 					return false;
 				}
 			}
-		}
+		};
 		this.all_shortcuts[shortcut_combination] = {
 			'callback':func,
 			'target':ele,
-			'event': opt['type']
+			'event': opt.type
 		};
 		//Attach the function with the event
-		if(ele.addEventListener) ele.addEventListener(opt['type'], func, false);
-		else if(ele.attachEvent) ele.attachEvent('on'+opt['type'], func);
-		else ele['on'+opt['type']] = func;
+		if(ele.addEventListener) {
+      ele.addEventListener(opt.type, func, false);
+    } else if(ele.attachEvent) {
+      ele.attachEvent('on'+opt.type, func);
+    } else {
+      ele['on'+opt.type] = func;
+    }
 	},
 
 	//Remove the shortcut - just specify the shortcut and I will remove the binding
 	'remove':function(shortcut_combination) {
 		shortcut_combination = shortcut_combination.toLowerCase();
 		var binding = this.all_shortcuts[shortcut_combination];
-		delete(this.all_shortcuts[shortcut_combination])
-		if(!binding) return;
-		var type = binding['event'];
-		var ele = binding['target'];
-		var callback = binding['callback'];
+		delete(this.all_shortcuts[shortcut_combination]);
+		if(!binding) {
+      return;
+    }
+		var type = binding.event;
+		var ele = binding.target;
+		var callback = binding.callback;
 
-		if(ele.detachEvent) ele.detachEvent('on'+type, callback);
-		else if(ele.removeEventListener) ele.removeEventListener(type, callback, false);
-		else ele['on'+type] = false;
+		if(ele.detachEvent) {
+      ele.detachEvent('on'+type, callback);
+    } else if(ele.removeEventListener) {
+      ele.removeEventListener(type, callback, false);
+    }	else {
+      ele['on'+type] = false;
+    }
 	}
-}
+};

@@ -3,11 +3,11 @@ $(document).ready(function() {
 
   if (form.length > 0 && form.attr('id').match(/^(new_enki_post|edit_enki_post|new_enki_page|edit_enki_page)/)) {
     var dest = window.location.href;
-    dest = dest.replace(/\/(new|\d+)$/, '')
-    dest = dest + '/preview'
+    dest = dest.replace(/\/(new|\d+)$/, '');
+    dest = dest + '/preview';
 
     var toggle_preview = function() {
-      if ($('#preview').length == 0) {
+      if ($('#preview').length === 0) {
         form.hide();
         form.after('<div id="preview"><h3>Your entry will be formatted like this:</h3><p>Use Ctrl+E to return to edit mode.</p><div class="content"><p>Please wait...</p></div></div>');
 
@@ -28,7 +28,7 @@ $(document).ready(function() {
         $('#preview').remove();
         form.show();
       }
-    }
+    };
 
     $(document).keyup(function(e) {
       if (e.ctrlKey && (e.which == 69)) { // Works in recent Safari and FF, unsure about IE
