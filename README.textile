@@ -6,7 +6,7 @@ h2. Quick Start
 
 * Add to your bundle:
 
-  gem 'enki_engine'
+  gem 'enki-engine'
   
 * Add the migrations
 
